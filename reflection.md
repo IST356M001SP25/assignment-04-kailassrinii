@@ -23,3 +23,4 @@ Examples:
 
 `--- Reflection Below This Line ---`
 
+In creating the UniBrow application, I learned a lot of valuable experience working with pandas and Streamlit this dataset browser. At the start I had a few problems trying to gt functions to deal with different types of files. I watched a yotube ideo which helped me a lot. Overall I learned the imporance of creating clear spearation for code when having different methods for decoding different types of files.

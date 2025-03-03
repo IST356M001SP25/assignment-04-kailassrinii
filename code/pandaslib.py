@@ -1,40 +1,41 @@
 '''
 A Library of useful pandas helper functions
-SOLUTION FILE!!!!
 '''
 import pandas as pd
+import os
 
-def get_column_names(df : pd.DataFrame) -> list[str]:
+def get_column_names(df: pd.DataFrame) -> list[str]:
     '''
     Get all column names of a pandas dataframe df
     Returns the names as a list of string
     '''
-    pass # todo: replace this line and add your code
+    return list(df.columns)
 
 
-def get_columns_of_type(df : pd.DataFrame, numpy_type: any) -> list[str]:
+def get_columns_of_type(df: pd.DataFrame, numpy_type: any) -> list[str]:
     '''
     Return the column names of a pandas dataframe only when 
     the values in the column match the numpy_type
     '''
-    pass # todo: replace this line and add your code
+    return list(df.select_dtypes(include=[numpy_type]).columns)
 
 
-def get_unique_values(df : pd.DataFrame, column_name: str) -> list:
+def get_unique_values(df: pd.DataFrame, column_name: str) -> list:
     '''
     Get a list of unique values of a column in a pandas dataframe
     '''
-    pass # todo: replace this line and add your code
+    return list(df[column_name].unique())
 
-def get_file_extension(file_path : str) -> str:
+
+def get_file_extension(file_path: str) -> str:
     '''
     Return the file extension of a file_path for example:
     '/some/file/data.csv' -> 'csv'
     '/home/important_grades.xlsx' -> 'xlsx'
     'countries.json' -> 'json'
-
     '''
-    pass # todo: replace this line and add your code
+    return os.path.splitext(file_path)[1][1:]  # Remove the dot
+
 
 def load_file(file_path: str, ext: str) -> pd.DataFrame:
     '''
@@ -44,7 +45,15 @@ def load_file(file_path: str, ext: str) -> pd.DataFrame:
     - when csv assume first row is header
     - when json assume record-oriented data
     '''
-    pass # todo: replace this line and add your code
+    if ext == 'csv':
+        return pd.read_csv(file_path)
+    elif ext in ['xlsx', 'xls']:
+        return pd.read_excel(file_path)
+    elif ext == 'json':
+        return pd.read_json(file_path)
+    else:
+        raise ValueError(f"Unsupported file type: {ext}")
+
 
 if __name__ == '__main__':
     df = pd.DataFrame({ 
@@ -63,9 +72,8 @@ if __name__ == '__main__':
     print(f"Float64 Columns: {cols}")
     unique = get_unique_values(df, 'state')
     print(f"Unique States: {unique}")
-
-
-
-
-
-    # solution pandaslib.py
+    
+    # Test file extension function
+    print(f"Extension: {get_file_extension('/some/file/data.csv')}")
+    print(f"Extension: {get_file_extension('/home/important_grades.xlsx')}")
+    print(f"Extension: {get_file_extension('countries.json')}")
